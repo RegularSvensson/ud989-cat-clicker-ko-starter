@@ -8,3 +8,5 @@ var ViewModel = function() {
 		this.clickCount(this.clickCount() + 1);
 	};
 }
+
+ko.applyBindings(new ViewModel());
