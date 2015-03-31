@@ -4,4 +4,7 @@ var ViewModel = function() {
 	this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
 	this.imgAttribution = ko.observable('www.google.com');
 
+	this.incrementCounter = function() {
+		this.clickCount(this.clickCount() + 1);
+	};
 }
