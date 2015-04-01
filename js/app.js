@@ -41,6 +41,8 @@ var Cat = function(data) {
 var ViewModel = function() {
 	var self = this;
 
+	this.catList = ko.observableArray([]);
+
 	this.incrementCounter = function() {
 		this.clickCount(this.clickCount() + 1);
 	};
