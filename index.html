@@ -5,18 +5,25 @@
     <title>Cat Clicker</title>
 </head>
 <body>
+    <!-- unordered list of catList -->
     <ul data-bind="foreach: catList">
+        <!-- set text to name and on click set parent to currentCat -->
         <li data-bind="text: name, click: $parent.setCat"></li>
     </ul>
     <div data-bind="with: currentCat">
-
+        <!-- bind text to name -->
         <h2 data-bind="text: name"></h2>
+        <!-- bind text to title -->
         <h3 data-bind="text: title"></h3>
+        <!-- bind text to clickcount -->
         <div data-bind="text: clickCount"></div>
+        <!-- bind click to parent's increment counter, and set attribute to imgSrc -->
         <img src="" alt="cute cat" data-bind="click: $parent.incrementCounter, attr: {src: imgSrc}">
         <div>
             <h3>Nicknames:</h3>
+            <!-- bind every array element in nicknames to ul -->
             <ul data-bind="foreach: nicknames">
+                <!-- grab element from arary, data -->
                 <li data-bind="text: $data"></li>
             </ul>
         </div>

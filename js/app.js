@@ -1,4 +1,8 @@
+
+/* ======= Model (collection?) ======= */
+//declare array of objects
 var initialCats = [
+	//cat objects
 	{
 		clickCount: 0,
 		name: 'Tabby',
@@ -16,13 +20,45 @@ var initialCats = [
 
 ]
 
+/* ======= ViewModel (Octopus) ======= */
+
+var ViewModel = function() {
+	//assign this to self for clarification
+	var self = this;
+	// set the catList to an observable array
+	this.catList = ko.observableArray([]);
+	//push all cats in initialCats array to catList
+	initialCats.forEach(function(catItem) {
+		self.catList.push( new Cat(catItem) );
+	});
+	//set currentCat to the first object in catList
+	this.currentCat = ko.observable( this.catList()[0] );
+	// declare function to increment counter
+	this.incrementCounter = function() {
+		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+	};
+	//declare function to setCat when a cat is clicked
+	this.setCat = function(clickedCat) {
+		self.currentCat(clickedCat);
+	};
+}
+
+
+
+/* ======= View ======= */
+//Declare view function Cat
 var Cat = function(data) {
+	//set clickCount to argument's clickCount
 	this.clickCount = ko.observable(data.clickCount);
+	//set name to argument's name
 	this.name = ko.observable(data.name);
+	//set imgSrc to arguement's imgSrc
 	this.imgSrc = ko.observable(data.imgSrc);
+	//set imgAttribution to argument's imgAttribution
 	this.imgAttribution = ko.observable(data.imgAttribution);
+	// set nicknames to argument's nicknames
 	this.nicknames = ko.observableArray(data.nicknames);
-	
+	// set title to function that depends on number of clicks
 	this.title = ko.computed(function() {
 		var title;
 		var clicks = this.clickCount();
@@ -37,25 +73,6 @@ var Cat = function(data) {
 	}, this);
 }
 
-
-var ViewModel = function() {
-	var self = this;
-
-	this.catList = ko.observableArray([]);
-
-	initialCats.forEach(function(catItem) {
-		self.catList.push( new Cat(catItem) );
-	});
-
-	this.currentCat = ko.observable( this.catList()[0] );
-	
-	this.incrementCounter = function() {
-		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
-	};
-
-	this.setCat = function(clickedCat) {
-		self.currentCat(clickedCat);
-	};
-}
-
+//call applyBindings function on a new ViewModel
 ko.applyBindings(new ViewModel());
+
